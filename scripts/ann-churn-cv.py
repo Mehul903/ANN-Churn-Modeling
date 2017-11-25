@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ## Importing the dataset
-dataset = pd.read_csv('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\Artificial_Neural_Networks\\Churn_Modelling.csv')
+dataset = pd.read_csv('../data/Churn_Modelling.csv')
 X = dataset.iloc[:, 3:13].values  ## Removing unnecessary columns
 y = dataset.iloc[:, 13].values
 

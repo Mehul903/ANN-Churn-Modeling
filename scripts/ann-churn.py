@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 ## Importing the dataset
-dataset = pd.read_csv('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\Artificial_Neural_Networks\\Churn_Modelling.csv')
+dataset = pd.read_csv('../data/Churn_Modelling.csv')
 X = dataset.iloc[:, 3:13].values  ## Removing unnecessary columns
 y = dataset.iloc[:, 13].values
 
@@ -15,7 +15,7 @@ temp_df = dataset.groupby(by = ['Geography', 'Gender']).size().unstack()
 temp_df.plot(ax = ax, kind = 'bar')
 ax.set_title('Distribution of Gender and Geography')
 ax.set_ylabel('Count')
-plt.savefig('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\GitRepo\\ANN-Churn-Modeling\\plots\\Gender_Geography.png')
+plt.savefig('../plots/Gender_Geography.png')
 plt.show()
 
 ## Age, Credit Score, Bank Balance, and  Estimated Salary
@@ -36,7 +36,7 @@ ax3.set_ylabel('Estimated Salary')
 ax4.set_ylabel('Estimated Salary')
 
 fig.tight_layout()
-plt.savefig('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\GitRepo\\ANN-Churn-Modeling\\plots\\scatter_matrix.png')
+plt.savefig('../plots/scatter_matrix.png')
 plt.show()
 
 ## Distribution of Age, Credit Score, Balance, Salary:
@@ -57,7 +57,7 @@ ax3.set_ylabel('Count')
 ax4.set_ylabel('Count')
 
 fig.tight_layout()
-plt.savefig('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\GitRepo\\ANN-Churn-Modeling\\plots\\histograms.png')
+plt.savefig('../plots/histograms.png')
 plt.show()
 
 ## Checking mean credit score of those who 'Exited' and those who didn't:
@@ -65,7 +65,7 @@ fig, ax = plt.subplots(figsize = (12, 8))
 dataset.groupby(by = 'Exited')['CreditScore'].mean().plot(kind = 'bar', ax = ax)
 ax.set_ylabel('Average Credit Score')
 ax.set_title('Comparison of average credit score: 0 vs. 1')
-plt.savefig('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\GitRepo\\ANN-Churn-Modeling\\plots\\AvgCrScore.png')
+plt.savefig('../plots/AvgCrScore.png')
 plt.show()
 
 ## Checking how many males and females exited/stayed:
@@ -73,7 +73,7 @@ fig, ax = plt.subplots(figsize = (12, 8))
 dataset.groupby(by = ['Exited', 'Gender']).size().unstack().plot(kind = 'bar', ax = ax)
 ax.set_ylabel('Count')
 ax.set_title('Check distribution of males/females: 0 vs. 1')
-plt.savefig('C:\\Users\\mpatel\\Documents\\MP_Personal\\Udemy_DeepLearning\\GitRepo\\ANN-Churn-Modeling\\plots\\Gender_Exited.png')
+plt.savefig('../plots/Gender_Exited.png')
 plt.show()
 
 ## Encoding categorical data: consider two categorical columns: Geography and Gender
