@@ -147,3 +147,10 @@ cm
 new_obs = np.array([[0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])  
 new_obc_scaled = scaler.transform(new_obs)
 classifier_nn.predict(new_obs)
+
+
+
+
+## Several independent runs of neural-network yield different values of accuracies, which vary betwenn 82 to 86%.
+## To get more robust estimate of accuracy, it's good to incorporate cross-validation in the classifier. 
+## CV is included in the another script, called 'ann-churn-cv.py'.
