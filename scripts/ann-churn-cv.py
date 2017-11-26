@@ -71,17 +71,42 @@ accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, c
 mean_ac = np.mean(accuracies)
 var_ac = np.var(accuracies)
 
-## Predicting the Test set results
-y_pred = classifier_nn.predict(X_test)
-y_pred = (y_pred > 0.5)
 
-## Checking the Confusion Matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
-cm
+## Improving Neural-Network:
+## Hyperparameter tunig using GridSearch
+## Tune for batch-size and #epochs:
+
+from sklearn.model_selection import GridSearchCV
+
+def construct_classifier(optimizer):   
+    
+    ## Initialize ANN: This ANN will work as a classifier.
+    classifier_nn = Sequential()
+    
+    ## Add two hidden layers in NN:
+    classifier_nn.add(Dense(units = 6, kernel_initializer = 'uniform', 
+                         activation = 'relu', input_shape = (11,)))
+    
+    classifier_nn.add(Dense(units = 6, kernel_initializer = 'uniform', 
+                         activation = 'relu'))
+    
+    ## Add o/p layer: If dependent variables has more than 2 categories then we'll use 'softmax' instead of 'sigmoid':
+    classifier_nn.add(Dense(units = 1, kernel_initializer = 'uniform', 
+                         activation = 'sigmoid'))
+    
+    ## Compiling the NN:
+    classifier_nn.compile(optimizer = optimizer, loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+    return classifier_nn
+
+classifier = KerasClassifier(build_fn = construct_classifier)
+parameters = {'batch_size': [25, 32],
+              'epochs': [100, 200], 
+              'optimizer': ['adam', 'rmsprop']}
+gs = GridSearchCV(estimator = classifier, param_grid = parameters, 
+                  scoring = 'accuracy', cv = 10)
 
 
-## Make prediction on one new observation:
-new_obs = np.array([[0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])  
-new_obc_scaled = scaler.transform(new_obs)
-classifier_nn.predict(new_obs)
+gs_2 = gs.fit(X_train, y_train)
+best_parameters = gs_2.best_params_
+best_accuracy = gs_2.best_score_
