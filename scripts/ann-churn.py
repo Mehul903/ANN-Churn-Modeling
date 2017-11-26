@@ -110,6 +110,7 @@ X_test = scaler.transform(X_test)
 import keras
 from keras.models import Sequential  ## Required to initialize the neural-network
 from keras.layers import Dense  ## Required to build layers of ANN
+from keras.layers import Dropout
 
 ## Initialize ANN: This ANN will work as a classifier.
 classifier_nn = Sequential()
@@ -117,9 +118,11 @@ classifier_nn = Sequential()
 ## Add two hidden layers in NN:
 classifier_nn.add(Dense(units = 6, kernel_initializer = 'uniform', 
                      activation = 'relu', input_shape = (11,)))
+classifier_nn.add(Dropout(p = 0.1))
 
 classifier_nn.add(Dense(units = 6, kernel_initializer = 'uniform', 
                      activation = 'relu'))
+classifier_nn.add(Dropout(p = 0.1))
 
 ## Add o/p layer: If dependent variables has more than 2 categories then we'll use 'softmax' instead of 'sigmoid':
 classifier_nn.add(Dense(units = 1, kernel_initializer = 'uniform', 
